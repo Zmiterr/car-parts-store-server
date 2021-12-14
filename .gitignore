@@ -1,2 +1,9 @@
 # Project exclude paths
 /node_modules/
+/.idea/modules.xml
+/.idea/car-parts-store-server.iml
+/.idea/jsLinters/eslint.xml
+/.idea/jsLibraryMappings.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/prettier.xml
+/.idea/vcs.xml
