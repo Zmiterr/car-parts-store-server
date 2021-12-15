@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
   try {
     const newUser = req.body;
     const user = await usersRepo.createUser(newUser);
-    res.status(201).send(user);
+    res.status(201).send(user.rows);
   } catch (err) {
     throw new Error(err);
   }
@@ -45,7 +45,7 @@ const updateUserByID = async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
     const user = await usersRepo.updateUser(id, updateData);
-    res.status(200).send(user);
+    res.status(200).send(user.rows);
   } catch (err) {
     throw new Error(err);
   }

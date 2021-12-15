@@ -1,7 +1,6 @@
 const db = require('../../database/database_connection');
-const User = require('./user.model');
 
-const getAll = async () => db.query('SELECT * FROM USERS');
+const getAll = async () => db.query('SELECT * FROM users');
 
 const getUser = async (id) => {
   const userById = db.query('SELECT * FROM USERS WHERE ID = $1', [id]);
@@ -12,24 +11,31 @@ const getUser = async (id) => {
 };
 
 const createUser = async (user) => {
-  const newUser = new User(user);
-  db.query('');
-  return User.toResponse(newUser);
+  const { login, password, role } = user;
+  const newUser = db.query(
+    'INSERT INTO users (login, password, role)  VALUES ($1, $2, $3) RETURNING *;',
+    [login, password, role]
+  );
+  return newUser;
 };
 
 const updateUser = async (id, updateData) => {
-  if (db.query('') === -1) {
+  const { password } = updateData;
+  if (db.query('SELECT * FROM USERS WHERE ID = $1', [id]).rowCount === 0) {
     throw new Error(`User with id ${id} not found`);
   }
-  const updatedUser = db.query('', [id, updateData]);
-  return User.toResponse(updatedUser);
+  const updatedUser = db.query('UPDATE users SET password = $2 WHERE id = $1', [
+    id,
+    password,
+  ]);
+  return updatedUser;
 };
 
 const deleteUser = async (id) => {
-  if (db.query('') === -1) {
+  if (db.query('SELECT * FROM USERS WHERE ID = $1', [id]).rowCount === 0) {
     throw new Error(`User with id ${id} not found`);
   }
-  db.query('');
+  db.query('DELETE FROM users WHERE id =$1', [id]);
 
   return id;
 };
