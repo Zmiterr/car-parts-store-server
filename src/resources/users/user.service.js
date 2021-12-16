@@ -14,7 +14,11 @@ const getUserByID = async (req, res) => {
     const { id } = req.params;
 
     const user = await usersRepo.getUser(id);
-    res.status(200).send(user.rows);
+    if (user.rows.length) {
+      res.status(200).send(user.rows);
+    } else {
+      res.status(404).send(`User with id ${id} not found`);
+    }
   } catch (err) {
     throw new Error(err);
   }
@@ -34,7 +38,7 @@ const deleteUserByID = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await usersRepo.deleteUser(id);
-    res.status(200).send(user);
+    res.status(200).send(user.rows);
   } catch (err) {
     throw new Error(err);
   }
