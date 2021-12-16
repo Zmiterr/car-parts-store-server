@@ -1,15 +1,13 @@
-const fastify = require('fastify');
-const userRouter = require('./resources/users/user.router');
-
-const app = fastify({
+const fastify = require('fastify')({
   logger: true,
 });
+const userRouter = require('./resources/users/user.router');
 
 const routes = [...userRouter];
 routes.forEach((route) => {
-  app.route(route);
+  fastify.route(route);
 });
 
-app.get('/', async () => 'Service is running!');
+fastify.get('/', async () => 'Service is running!');
 
-module.exports = app;
+module.exports = fastify;

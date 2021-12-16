@@ -1,11 +1,11 @@
 const { PORT } = require('./common/config');
-const app = require('./app');
+const fastify = require('./app');
 
 (async () => {
-    try {
-        await app.listen(PORT);
-    } catch (err) {
-        app.log.error(err);
-        process.exit(1);
-    }
+  try {
+    await fastify.listen(PORT);
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
 })();
