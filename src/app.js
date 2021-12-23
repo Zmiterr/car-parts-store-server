@@ -1,26 +1,44 @@
 const fastify = require('fastify')({
-  logger: true,
+  logger: {
+    level: 'info',
+    prettyPrint: true,
+    target: 'pino-pretty',
+    // file: './log.txt', // Will use pino.destination()
+    options: {
+      colorize: true,
+    },
+  },
+});
+
+fastify.addHook('preHandler', async (req, reply) => {
+  if (req.body) {
+    req.log.info({ body: req.body, params: req.params }, 'parsed body');
+    reply.log.info({ body: req.body }, 'parsed body');
+  }
 });
 // const fp = require('fastify-plugin');
 // const jwt = require('fastify-jwt');
 const db = require('./database/database_connection');
 
-// fp(async (fast) => {
-fastify.register(require('fastify-jwt'), {
-  secret: async () => process.env.JWT_SECRET_KEY,
-});
 fastify.register(require('fastify-cors'), {
   origin: '*',
 });
 
-fastify.decorate('authenticate', async (request, reply) => {
-  try {
-    await request.jwtVerify();
-  } catch (err) {
-    reply.send(err);
-  }
-});
+// fp(async (fast) => {
+// fastify.register(require('fastify-jwt'), {
+//   secret: async () => process.env.JWT_SECRET_KEY,
 // });
+//
+// fastify.decorate('authenticate', async (request, reply) => {
+//   try {
+//     await request.jwtVerify();
+//   } catch (err) {
+//     reply.send(err);
+//   }
+// });
+// });
+
+fastify.register(require('./middleware/auth'));
 
 const checkUSer = async (login, password) =>
   db.query('SELECT * FROM USERS WHERE login = $1 AND password = $2', [
@@ -53,10 +71,12 @@ const routes = [...userRouter];
 routes.forEach((route) => {
   fastify.route(route);
 });
+fastify.register(require('./resources/auth/test.router'));
+fastify.register(require('./resources/auth/auth.router'));
 
 fastify.get(
   '/',
-  { preValidation: [fastify.authenticate] },
+  // { preValidation: [fastify.authenticate] },
   async () => 'Service is running!'
 );
 
