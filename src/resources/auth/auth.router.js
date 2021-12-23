@@ -1,11 +1,17 @@
 const authService = require('./auth.service');
 
-const AuthRoutes = [
-  {
-    method: 'POST',
-    url: '/signup',
-    handler: authService.signup,
-  },
-];
-
-module.exports = AuthRoutes;
+async function AuthRouter(fastify) {
+  const AuthRoutes = [
+    {
+      method: 'POST',
+      url: '/signupp',
+      preValidation: [fastify.authenticate],
+      handler: authService.signup,
+      // handler: async () => 'done!',
+    },
+  ];
+  AuthRoutes.forEach((route) => {
+    fastify.route(route);
+  });
+}
+module.exports = AuthRouter;
