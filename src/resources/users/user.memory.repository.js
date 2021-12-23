@@ -21,7 +21,7 @@ const createUser = async (user) => {
 
 const updateUser = async (id, updateData) => {
   const { password } = updateData;
-  if (db.query('SELECT * FROM USERS WHERE ID = $1', [id]).rowCount === 0) {
+  if (db.query('SELECT * FROM USERS WHERE ID = $1', [id]).length) {
     throw new Error(`User with id ${id} not found`);
   }
   const updatedUser = db.query('UPDATE users SET password = $2 WHERE id = $1', [
@@ -32,7 +32,7 @@ const updateUser = async (id, updateData) => {
 };
 
 const deleteUser = async (id) => {
-  if (db.query('SELECT * FROM USERS WHERE ID = $1', [id]).rowCount === 0) {
+  if (db.query('SELECT * FROM USERS WHERE ID = $1', [id]).rows.length) {
     throw new Error(`User with id ${id} not found`);
   }
   db.query('DELETE FROM users WHERE id =$1', [id]);
