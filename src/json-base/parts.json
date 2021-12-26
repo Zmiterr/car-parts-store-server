@@ -1,93 +1,93 @@
 [
   {
-    "objectId": "",
+    "objectId": "1",
     "Category": "Drivetrain",
     "Name": "Differential",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Giulia"
+    "Models": ["Stelvio","Giulia"]
   },
   {
-    "objectId": "",
+    "objectId": "2",
     "Category": "Light",
     "Name": "Lamp",
     "Description": "Alfa Romeo part",
-    "Models": "Spider"
+    "Models": ["Spider"]
   },
   {
-    "objectId": "",
+    "objectId": "3",
     "Category": "Brakes",
     "Name": "Brake",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Spider"
+    "Models": ["Stelvio","Spider"]
   },
   {
-    "objectId": "",
+    "objectId": "4",
     "Category": "Drivetrain",
     "Name": "Differential",
     "Description": "Alfa Romeo part",
-    "Models": "Spider, Giulia"
+    "Models": ["Spider", "Giulia"]
   },
   {
-    "objectId": "",
+    "objectId": "5",
     "Category": "Shocks",
     "Name": "Shock",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Giulia"
+    "Models": ["Stelvio", "Giulia"]
   },
   {
-    "objectId": "",
+    "objectId": "6",
     "Category": "Radiators",
     "Name": "Radiator",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Giulia"
+    "Models": ["Stelvio", "Giulia"]
   },
   {
-    "objectId": "",
+    "objectId": "7",
     "Category": "Drivetrain",
     "Name": "Differential",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Giulia"
+    "Models": ["Stelvio"]
   },
   {
-    "objectId": "",
+    "objectId": "8",
     "Category": "Drivetrain",
     "Name": "Differential",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Giulia"
+    "Models": ["Giulia"]
   },
   {
-    "objectId": "",
+    "objectId": "9",
     "Category": "Drivetrain",
     "Name": "Differential",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Giulia"
+    "Models": ["Stelvio", "Giulia"]
   },
   {
-    "objectId": "",
+    "objectId": "10",
     "Category": "Drivetrain",
     "Name": "Differential",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Giulia"
+    "Models": ["Stelvio, Spider"]
   },
   {
-    "objectId": "",
+    "objectId": "11",
     "Category": "Drivetrain",
     "Name": "Differential",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Giulia"
+    "Models": ["Spider, Giulia"]
   },
   {
-    "objectId": "",
+    "objectId": "12",
     "Category": "Drivetrain",
     "Name": "Differential",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Giulia"
+    "Models": ["Giulia"]
   },
   {
-    "objectId": "",
+    "objectId": "13",
     "Category": "Drivetrain",
     "Name": "Differential",
     "Description": "Alfa Romeo part",
-    "Models": "Stelvio, Giulia"
+    "Models": ["Stelvio"]
   }
 ]
