@@ -73,6 +73,7 @@ routes.forEach((route) => {
 });
 fastify.register(require('./resources/auth/test.router'));
 fastify.register(require('./resources/auth/auth.router'));
+fastify.register(require('./resources/parts/parts.router'));
 
 fastify.get(
   '/',

@@ -1,6 +1,11 @@
-const db = require('../../database/database_connection');
+const fs = require('fs');
+// const db = require('../../database/database_connection');
 
-const getAll = async () => db.query('SELECT * FROM parts');
+const getAll = async () => {
+  const rawdata = fs.readFileSync('src/json-base/parts.json');
+  const parts = JSON.parse(rawdata);
+  return parts;
+};
 
 const getPart = async (id) => {
   const partById = db.query('SELECT * FROM parts WHERE ID = $1', [id]);

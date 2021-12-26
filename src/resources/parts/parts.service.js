@@ -2,8 +2,8 @@ const partsRepo = require('./parts.memory.repository');
 
 const getAll = async (req, res) => {
   try {
-    const users = await partsRepo.getAll();
-    res.status(200).send(users.rows);
+    const parts = await partsRepo.getAll();
+    res.status(200).send(parts);
   } catch (err) {
     throw new Error(err);
   }
