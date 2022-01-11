@@ -13,11 +13,11 @@ const getPartByID = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const user = await partsRepo.getPart(id);
-    if (user.rows.length) {
-      res.status(200).send(user.rows);
+    const part = await partsRepo.getPart(id);
+    if (part.rows.length) {
+      res.status(200).send(part.rows);
     } else {
-      res.status(404).send(`User with id ${id} not found`);
+      res.status(404).send(`Part with id ${id} not found`);
     }
   } catch (err) {
     throw new Error(err);
@@ -27,8 +27,8 @@ const getPartByID = async (req, res) => {
 const createPart = async (req, res) => {
   try {
     const newPart = req.body;
-    const user = await partsRepo.createPart(newPart);
-    res.status(201).send(user.rows);
+    const part = await partsRepo.createPart(newPart);
+    res.status(201).send(part.rows);
   } catch (err) {
     throw new Error(err);
   }
@@ -37,8 +37,8 @@ const createPart = async (req, res) => {
 const deletePartByID = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await partsRepo.deletePart(id);
-    res.status(200).send(user.rows);
+    const part = await partsRepo.deletePart(id);
+    res.status(200).send(part.rows);
   } catch (err) {
     throw new Error(err);
   }
@@ -48,8 +48,8 @@ const updatePartByID = async (req, res) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
-    const user = await partsRepo.updateUser(id, updateData);
-    res.status(200).send(user.rows);
+    const part = await partsRepo.updatePart(id, updateData);
+    res.status(200).send(part.rows);
   } catch (err) {
     throw new Error(err);
   }
