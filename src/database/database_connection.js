@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { Pool } = require('pg');
+// TODO security
 
 const pool = new Pool({
   user: 'postgres',

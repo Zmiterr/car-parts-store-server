@@ -11,6 +11,7 @@ const signup = async (req, res) => {
     // TODO import correct fastify with decorator
     if (userData.rows.length) {
       const token = await fastify.jwt.sign(
+        // TODO move to config
         { payload },
         { expiresIn: 9999999999 }
       );
