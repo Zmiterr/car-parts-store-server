@@ -9,6 +9,15 @@ const getAll = async (req, res) => {
   }
 };
 
+const getByDealer = async (req, res) => {
+  try {
+    const lots = await lotsRepo.getByDealer();
+    res.status(200).send(lots);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 const getLotByID = async (req, res) => {
   try {
     const { id } = req.params;
@@ -38,7 +47,7 @@ const deleteLotByID = async (req, res) => {
   try {
     const { id } = req.params;
     const lot = await lotsRepo.deleteLot(id);
-    res.status(200).send(lot.rows);
+    res.status(200).send(lot);
   } catch (err) {
     throw new Error(err);
   }
@@ -58,6 +67,7 @@ const updateLotByID = async (req, res) => {
 module.exports = {
   getAll,
   getLotByID,
+  getByCustomer: getByDealer,
   createLot,
   deleteLotByID,
   updateLotByID,
