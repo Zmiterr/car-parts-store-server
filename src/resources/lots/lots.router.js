@@ -14,6 +14,11 @@ async function LotsRouter(fastify) {
       handler: lotsService.getLotByID,
     },
     {
+      method: 'GET',
+      url: '/my-lots/:id',
+      handler: lotsService.getByCustomer,
+    },
+    {
       method: 'POST',
       url: '/lots',
       handler: lotsService.createLot,
