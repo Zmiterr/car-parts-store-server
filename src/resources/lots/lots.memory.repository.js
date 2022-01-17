@@ -16,7 +16,7 @@ const isLotExist = (id) =>
 
 const getLots = async (id) => {
   const dealerLotsQuery = await db.query(
-    `SELECT * FROM lots WHERE "dealerId" = ''`
+    `SELECT * FROM lots WHERE "dealerId" = '1'`
   );
   return dealerLotsQuery.rows;
 };
@@ -71,7 +71,7 @@ WHERE id = '${id}'  RETURNING *`
 };
 
 const deleteLot = async (id) => {
-  if (isLotExist(id)) {
+  if (isLotExist) {
     throw new Error(`User with id ${id} not found`);
   }
   // TODO set variable instead if 0 for real delete from db
