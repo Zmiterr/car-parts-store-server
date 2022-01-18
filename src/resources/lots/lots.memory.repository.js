@@ -55,11 +55,11 @@ VALUES ('${partId}', '${dealerId}', '${description}', '${price}', '${condition}'
 const updateLot = async (
   id,
   { partId, description, price, condition, photoUrl }
-) => {
-  if (db.query('SELECT * FROM lots WHERE ID = $1', [id]).length) {
-    throw new Error(`User with id ${id} not found`);
-  }
-  return db.query(
+) =>
+  // if (db.query('SELECT * FROM lots WHERE ID = $1', [id]).length) {
+  //   throw new Error(`User with id ${id} not found`);
+  // }
+  db.query(
     `UPDATE lots 
 SET "partId" = '${partId}', 
     description = '${description}', 
@@ -68,11 +68,9 @@ SET "partId" = '${partId}',
     "photoUrl" = '${photoUrl}' 
 WHERE id = '${id}'  RETURNING *`
   );
-};
-
 const deleteLot = async (id) => {
-  if (isLotExist) {
-    throw new Error(`User with id ${id} not found`);
+  if (!isLotExist) {
+    throw new Error(`Lot with id ${id} not found`);
   }
   // TODO set variable instead if 0 for real delete from db
   db.query(`DELETE FROM lots WHERE id ='${0}'`);
