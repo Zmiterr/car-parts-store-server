@@ -1,6 +1,7 @@
 const usersRepo = require('./auth.memory.repository');
+const { TOKEN_EXPIRE } = require('../../common/config');
 
-const signup = async (req, res) => {
+const signup = (fastify) => async (req, res) => {
   try {
     const payload = req.body;
     const { username, password } = payload;
@@ -8,13 +9,8 @@ const signup = async (req, res) => {
       res.status(400).send({ error: true, msg: 'no required params' });
     }
     const userData = await usersRepo.checkUser(username, password);
-    // TODO import correct fastify with decorator
     if (userData.rows.length) {
-      const token = await fastify.jwt.sign(
-        // TODO move to config
-        { payload },
-        { expiresIn: 9999999999 }
-      );
+      const token = fastify.jwt.sign({ payload }, { expiresIn: TOKEN_EXPIRE });
       res.send({ auth: true, token, userData: userData.rows });
     } else {
       res.status(401).send({ auth: false, msg: 'wrong login data' });

@@ -6,7 +6,7 @@ async function AuthRouter(fastify) {
       method: 'POST',
       url: '/signupp',
       preValidation: [fastify.authenticate],
-      handler: authService.signup,
+      handler: authService.signup(fastify),
       // handler: async () => 'done!',
     },
   ];
