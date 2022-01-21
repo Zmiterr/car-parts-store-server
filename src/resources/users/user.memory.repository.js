@@ -20,14 +20,18 @@ const createUser = async (user) => {
 };
 
 const updateUser = async (id, updateData) => {
-  const { password } = updateData;
+  const { firstName, lastName, phone, email } = updateData;
   if (db.query('SELECT * FROM USERS WHERE ID = $1', [id]).length) {
     throw new Error(`User with id ${id} not found`);
   }
-  const updatedUser = db.query('UPDATE users SET password = $2 WHERE id = $1', [
-    id,
-    password,
-  ]);
+  const updatedUser = db.query(
+    `UPDATE users 
+     SET "firstName" = '${firstName}',
+         "lastName" = '${lastName}',
+         "password" = '${phone}',
+         "email" = '${email}'
+     WHERE id = ${id} `
+  );
   return updatedUser;
 };
 
