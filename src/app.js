@@ -71,7 +71,7 @@ const routes = [...userRouter];
 routes.forEach((route) => {
   fastify.route(route);
 });
-fastify.register(require('./resources/auth/test.router'));
+
 fastify.register(require('./resources/auth/auth.router'));
 fastify.register(require('./resources/parts/parts.router'));
 fastify.register(require('./resources/lots/lots.router'));
