@@ -49,7 +49,11 @@ const createLot = async ({
 }) =>
   db.query(
     `INSERT INTO lots("partId", "dealerId", description, price, condition, "photoUrl") 
-VALUES ('${partId}', '${dealerId}', '${description}', '${price}', '${condition}', '${photoUrl}') RETURNING *`
+VALUES (${partId || null}, 
+        ${dealerId || 1}, 
+        ${description || null}, 
+        '${price}', '${condition}', 
+        ${photoUrl || null}) RETURNING *`
   );
 
 const updateLot = async (
@@ -73,7 +77,7 @@ const deleteLot = async (id) => {
     throw new Error(`Lot with id ${id} not found`);
   }
   // TODO set variable instead if 0 for real delete from db
-  db.query(`DELETE FROM lots WHERE id ='${0}'`);
+  db.query(`DELETE FROM lots WHERE id ='${id}'`);
 
   return 1;
 };
