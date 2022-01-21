@@ -76,7 +76,6 @@ const deleteLot = async (id) => {
   if (!isLotExist) {
     throw new Error(`Lot with id ${id} not found`);
   }
-  // TODO set variable instead if 0 for real delete from db
   db.query(`DELETE FROM lots WHERE id ='${id}'`);
 
   return 1;
