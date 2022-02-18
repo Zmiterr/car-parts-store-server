@@ -28,7 +28,7 @@ const updateUser = async (id, updateData) => {
     `UPDATE users 
      SET "firstName" = '${firstName}',
          "lastName" = '${lastName}',
-         "password" = '${phone}',
+         "phone" = '${phone}',
          "email" = '${email}'
      WHERE id = ${id} `
   );

@@ -10,13 +10,11 @@ const getParts = () => {
   }));
 };
 const isLotExist = (id) =>
-  db.query(`SELECT *
-                               FROM lots
-                               WHERE ID = '${id}'`).rows;
+  db.query(`SELECT * FROM lots WHERE ID = '${id}'`).rows;
 
-const getLots = async (id) => {
+const getLots = async () => {
   const dealerLotsQuery = await db.query(
-    `SELECT * FROM lots WHERE "dealerId" = '1'`
+    `SELECT lots.*, users."lastName", users."firstName", users.location FROM lots join users on lots."dealerId" = users.id`
   );
   return dealerLotsQuery.rows;
 };
@@ -32,7 +30,9 @@ const getByDealer = async (dealerId = 1) => {
 };
 
 const getLot = async (id) => {
-  const lotById = db.query(`SELECT * FROM lots WHERE ID = '${id}'`);
+  const lotById = db.query(`SELECT *
+                              FROM lots
+                              WHERE ID = '${id}'`);
   if (!lotById) {
     throw new Error(`Lot with id ${id} not found`);
   }
@@ -48,12 +48,13 @@ const createLot = async ({
   photoUrl,
 }) =>
   db.query(
-    `INSERT INTO lots("partId", "dealerId", description, price, condition, "photoUrl") 
-VALUES (${partId || null}, 
-        ${dealerId || 1}, 
-        ${description || null}, 
-        '${price}', '${condition}', 
-        ${photoUrl || null}) RETURNING *`
+    `INSERT INTO lots("partId", "dealerId", description, price, condition, "photoUrl")
+         VALUES (${partId || null},
+                 ${dealerId || 1},
+                 ${description || null},
+                 '${price}', '${condition}',
+                 ${photoUrl || null})
+         RETURNING *`
   );
 
 const updateLot = async (
@@ -64,19 +65,22 @@ const updateLot = async (
   //   throw new Error(`User with id ${id} not found`);
   // }
   db.query(
-    `UPDATE lots 
-SET "partId" = '${partId}', 
-    description = '${description}', 
-    price = '${price}', 
-    condition ='${condition}', 
-    "photoUrl" = '${photoUrl}' 
-WHERE id = '${id}'  RETURNING *`
+    `UPDATE lots
+         SET "partId"    = '${partId}',
+             description = '${description}',
+             price       = '${price}',
+             condition   ='${condition}',
+             "photoUrl"  = '${photoUrl}'
+         WHERE id = '${id}'
+         RETURNING *`
   );
 const deleteLot = async (id) => {
   if (!isLotExist) {
     throw new Error(`Lot with id ${id} not found`);
   }
-  db.query(`DELETE FROM lots WHERE id ='${id}'`);
+  db.query(`DELETE
+              FROM lots
+              WHERE id = '${id}'`);
 
   return 1;
 };
