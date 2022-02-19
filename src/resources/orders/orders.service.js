@@ -3,7 +3,7 @@ const ordersRepo = require('./orders.memory.repository');
 const getAll = async (req, res) => {
   try {
     const lots = await ordersRepo.getAll();
-    res.status(200).send(lots);
+    res.status(200).send(lots.rows);
   } catch (err) {
     throw new Error(err);
   }

@@ -3,13 +3,13 @@ const db = require('../../database/database_connection');
 const getAll = async () => {
   const orders = await db.query(
     `SELECT l.id,
-       customers."firstName",
-       customers."lastName",
+       customers."firstName" as "customerFirstName",
+       customers."lastName" as "customerLastName",
        customers.email,
        customers."deliveryAddress",
        customers.phone,
-       dealers."firstName",
-       dealers."lastName",
+       dealers."firstName" as "dealerFirstName",
+       dealers."lastName" as "dealerLastName",
        dealers.phone,
        dealers.location
 FROM orders o
@@ -23,13 +23,13 @@ FROM orders o
 const getByCustomer = async (customerId) => {
   const customersLots = await db.query(
     `SELECT l.id,
-       customers."firstName",
-       customers."lastName",
+       customers."firstName" as "customerFirstName",
+       customers."lastName" as "customerLastName",
        customers.email,
        customers."deliveryAddress",
        customers.phone,
-       dealers."firstName",
-       dealers."lastName",
+       dealers."firstName" as "dealerFirstName",
+       dealers."lastName" as "dealerLastName",
        dealers.phone,
        dealers.location
 FROM orders o
@@ -44,13 +44,13 @@ WHERE customers.id = ${customerId};`
 const getByDealer = async (dealerId) => {
   const dealerLots = await db.query(
     `SELECT l.id,
-       customers."firstName",
-       customers."lastName",
+       customers."firstName" as "customerFirstName",
+       customers."lastName" as "customerLastName",
        customers.email,
        customers."deliveryAddress",
        customers.phone,
-       dealers."firstName",
-       dealers."lastName",
+       dealers."firstName" as "dealerFirstName",
+       dealers."lastName" as "dealerLastName",
        dealers.phone,
        dealers.location
 FROM orders o
