@@ -34,9 +34,13 @@ const getByDealer = async (req, res) => {
 
 const createLot = async (req, res) => {
   try {
-    const newLot = req.body;
-    const lot = await ordersRepo.createLot(newLot);
-    res.status(201).send(lot.rows);
+    const { lotsId, customerId } = req.body;
+    const lotsIdArray = lotsId.split('-');
+    const result = await lotsIdArray.map((lot) =>
+      ordersRepo.createLot({ lotsId: lot, customerId })
+    );
+    // TODO how to return no empty object?
+    res.status(201).send(result);
   } catch (err) {
     throw new Error(err);
   }
