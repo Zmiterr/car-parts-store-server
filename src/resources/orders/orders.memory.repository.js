@@ -2,7 +2,7 @@ const db = require('../../database/database_connection');
 
 const getAll = async () => {
   const orders = await db.query(
-    `SELECT l.id,
+    `SELECT l.*,
        customers."firstName" as "customerFirstName",
        customers."lastName" as "customerLastName",
        customers.email,
@@ -11,7 +11,8 @@ const getAll = async () => {
        dealers."firstName" as "dealerFirstName",
        dealers."lastName" as "dealerLastName",
        dealers.phone,
-       dealers.location
+       dealers.location,
+       o."orderDate"
 FROM orders o
          JOIN lots l ON l.id = o."lotsId"
          JOIN users dealers ON dealers.id = l."dealerId"
@@ -31,7 +32,8 @@ const getByCustomer = async (customerId) => {
        dealers."firstName" as "dealerFirstName",
        dealers."lastName" as "dealerLastName",
        dealers.phone,
-       dealers.location
+       dealers.location,
+       o."orderDate"
 FROM orders o
          JOIN lots l ON l.id = o."lotsId"
          JOIN users dealers ON dealers.id = l."dealerId"
@@ -52,7 +54,8 @@ const getByDealer = async (dealerId) => {
        dealers."firstName" as "dealerFirstName",
        dealers."lastName" as "dealerLastName",
        dealers.phone,
-       dealers.location
+       dealers.location,
+       o."orderDate"
 FROM orders o
          JOIN lots l ON l.id = o."lotsId"
          JOIN users dealers ON dealers.id = l."dealerId"
@@ -64,9 +67,10 @@ WHERE dealers.id = ${dealerId};`
 
 const createLot = async ({ lotsId, customerId }) =>
   db.query(
-    `INSERT INTO orders("lotsId", "customerId")
+    `INSERT INTO orders("lotsId", "customerId", "orderDate")
          VALUES (${lotsId},
-                 ${customerId}
+                 ${customerId},
+                  (select current_date)
                  )
          RETURNING *`
   );
