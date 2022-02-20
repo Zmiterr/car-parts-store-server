@@ -21,16 +21,19 @@ async function LotsRouter(fastify) {
     {
       method: 'POST',
       url: '/lots',
+      preValidation: [fastify.authenticate],
       handler: lotsService.createLot,
     },
     {
       method: 'PUT',
       url: '/lots/:id',
+      preValidation: [fastify.authenticate],
       handler: lotsService.updateLotByID,
     },
     {
       method: 'DELETE',
       url: '/lots/:id',
+      preValidation: [fastify.authenticate],
       handler: lotsService.deleteLotByID,
     },
   ];
