@@ -24,6 +24,36 @@ fastify.register(require('fastify-cors'), {
   origin: '*',
 });
 
+fastify.register(require('fastify-socket.io'), {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+  maxPayload: 2500,
+});
+
+fastify.get('/chat', (req, reply) => {
+  fastify.io.emit('hello');
+  reply.status(200).send('Socket connected');
+});
+
+fastify.ready((err) => {
+  if (err) throw err;
+
+  fastify.io.on('connection', (socket) => {
+    console.info('Socket connected!', socket.id);
+    socket.on('newMessage', (data) => {
+      console.log('initiated', data);
+      fastify.io.sockets.emit('chat', data);
+    });
+    socket.on('online', () => {
+      fastify.io.emit('joined', {
+        success: true,
+      });
+    });
+  });
+});
+
 // fp(async (fast) => {
 // fastify.register(require('fastify-jwt'), {
 //   secret: async () => process.env.JWT_SECRET_KEY,

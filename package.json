@@ -20,8 +20,10 @@
     "fastify-cors": "^6.0.2",
     "fastify-jwt": "^4.1.1",
     "fastify-plugin": "^3.0.0",
+    "fastify-socket.io": "^3.0.0",
     "pg": "^8.7.1",
-    "pino-pretty": "^7.3.0"
+    "pino-pretty": "^7.3.0",
+    "socket.io": "^4.4.1"
   },
   "devDependencies": {
     "eslint": "^8.4.1",
