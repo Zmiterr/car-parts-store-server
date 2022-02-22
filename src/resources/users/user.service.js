@@ -55,10 +55,22 @@ const updateUserByID = async (req, res) => {
   }
 };
 
+const updateUserLocationByID = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+    const user = await usersRepo.updateUserLocation(id, updateData);
+    res.status(200).send(`Address saved ${user}`);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 module.exports = {
   getAll,
   getUserByID,
   createUser,
   deleteUserByID,
   updateUserByID,
+  updateUserLocationByID,
 };

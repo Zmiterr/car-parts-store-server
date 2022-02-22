@@ -35,6 +35,18 @@ const updateUser = async (id, updateData) => {
   return updatedUser;
 };
 
+const updateUserLocation = async (id, updateData) => {
+  if (db.query('SELECT * FROM USERS WHERE ID = $1', [id]).length) {
+    throw new Error(`User with id ${id} not found`);
+  }
+  const updatedUser = db.query(
+    `UPDATE users 
+     SET "location" = '${updateData}'         
+     WHERE id = ${id} `
+  );
+  return updatedUser;
+};
+
 const deleteUser = async (id) => {
   if (db.query('SELECT * FROM USERS WHERE ID = $1', [id]).rows.length) {
     throw new Error(`User with id ${id} not found`);
@@ -44,4 +56,11 @@ const deleteUser = async (id) => {
   return id;
 };
 
-module.exports = { getAll, getUser, createUser, deleteUser, updateUser };
+module.exports = {
+  getAll,
+  getUser,
+  createUser,
+  deleteUser,
+  updateUser,
+  updateUserLocation,
+};

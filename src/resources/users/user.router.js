@@ -22,6 +22,11 @@ const UserRoutes = [
     handler: usersService.updateUserByID,
   },
   {
+    method: 'PUT',
+    url: '/users-location/:id',
+    handler: usersService.updateUserLocationByID,
+  },
+  {
     method: 'DELETE',
     url: '/users/:id',
     handler: usersService.deleteUserByID,
