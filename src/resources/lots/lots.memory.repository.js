@@ -14,7 +14,11 @@ const isLotExist = (id) =>
 
 const getLots = async () => {
   const dealerLotsQuery = await db.query(
-    `SELECT lots.*, users."lastName", users."firstName", users.location FROM lots join users on lots."dealerId" = users.id`
+    `SELECT lots.*, users."lastName", 
+       users."firstName", 
+       users.location,
+       users."locationString"
+FROM lots join users on lots."dealerId" = users.id`
   );
   return dealerLotsQuery.rows;
 };

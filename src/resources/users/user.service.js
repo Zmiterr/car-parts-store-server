@@ -59,8 +59,8 @@ const updateUserLocationByID = async (req, res) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
-    const user = await usersRepo.updateUserLocation(id, updateData);
-    res.status(200).send(`Address saved ${user}`);
+    await usersRepo.updateUserLocation(id, updateData);
+    res.status(200).send(`Address saved`);
   } catch (err) {
     throw new Error(err);
   }

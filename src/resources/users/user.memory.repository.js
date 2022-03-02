@@ -41,7 +41,8 @@ const updateUserLocation = async (id, updateData) => {
   }
   const updatedUser = db.query(
     `UPDATE users 
-     SET "location" = '${updateData}'         
+     SET "location" = '${updateData.coordinatesString}',
+         "locationString" = '${updateData.address}'
      WHERE id = ${id} `
   );
   return updatedUser;
